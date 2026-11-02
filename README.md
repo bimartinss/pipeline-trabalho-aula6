@@ -1,54 +1,63 @@
-# O Projeto
+# Automation Exercise - Testes E2E com Cypress
 
-Este projeto foi criado com o objetivo de montar uma pipeline de integracao continua ; trabalho de conclusao da disciplina.
+Projeto de automacao web para os casos **1, 2, 3, 4, 5, 8, 9, 10, 15 e 16** da pagina [Test Cases](https://automationexercise.com/test_cases).
 
-Como eu ja tinha um projeto em JavaScript de uma disciplina anterior, resolvi adaptar esse mesmo para a atividade. ELE Simula um servico simples de pagamento, com testes automatizados usando Mocha.
+## Tecnologias
+- Cypress 13 + JavaScript
+- Page Object Model (POM)
+- Fixtures para dados de teste
+- GitHub Actions para CI
+- Mochawesome para relatorios HTML/JSON
 
-## Tecnologias usadas
+## Casos automatizados
 
-- JavaScript
-- Node.js
-- Mocha
-- GitHub Actions
+| Caso | Cenario |
+|---|---|
+| TC01 | Registrar um novo usuario |
+| TC02 | Login com email e senha corretos |
+| TC03 | Login com email e senha incorretos |
+| TC04 | Logout do usuario |
+| TC05 | Tentar registrar usuario com email ja cadastrado |
+| TC08 | Verificar lista de produtos e detalhes |
+| TC09 | Pesquisar produtos |
+| TC10 | Verificar assinatura na pagina inicial |
+| TC15 | Fazer pedido registrando antes do checkout |
+| TC16 | Fazer pedido com login antes do checkout |
 
-### Estrutura do projeto
+## Estrutura
+```text
+cypress/
+  e2e/automation-exercise.cy.js
+  fixtures/user.json
+  fixtures/payment.json
+  pages/ (HomePage, AccountPage, ProductsPage, CheckoutPage)
+  support/ (commands.js, e2e.js)
+.github/workflows/cypress.yml
+cypress.config.js
+package.json
+```
 
-.
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-├── src/
-│   └── ServicoDePagamento.js
-├── test/
-│   └── ServicoDePagamento.test.js
-├── package.json
-├── .gitignore
-└── README.md
+## Execucao local
+Requisitos: Node.js 20+.
+```bash
+npm install
+npx cypress open
+```
+Execucao headless: `npm run cy:run`.
 
+O relatorio Mochawesome, screenshots e videos ficam em `cypress/reports`, `cypress/screenshots` e `cypress/videos`.
 
-#### Testes 
+## GitHub Actions
+O workflow `.github/workflows/cypress.yml` roda em push para a branch de trabalho, em pull requests para main/master e manualmente. Instala dependencias, executa Cypress em Chrome headless e publica relatorios/evidencias como artefato por 14 dias, inclusive em falhas.
 
-Os testes ficam em:
-test/ServicoDePagamento.test.js
+## Padroes e boas praticas
+- POM separa interacoes das paginas e cenarios.
+- Fixtures mantem dados de teste fora dos specs.
+- Comando customizado `registerNewUser` reduz duplicacao.
+- Email dinamico evita conflitos entre execucoes.
+- Preferencia por seletores estaveis `data-qa`, IDs e classes semanticas.
+- Casos identificados com os mesmos numeros do roteiro.
+- `node_modules` e artefatos gerados estao no .gitignore.
 
-
-e validam o seguinte
-
-- pagamento classificado como caro;
-- pagamento classificado como padrao;
-- consulta do ultimo pagamento;
-- retorno `null` quando nao existe pagamento;
-- erro quando o codigo de barras nao e informado;
-- erro quando o valor do pagamento e invalido.
-
-
-##### Pipeline no GitHub 
-
-A pipeline foi criada no arquivo:
-.github/workflows/ci.yml
-
-executa os testes automatizados e salva os relatorios da execucao.
-
-###### Formas de execucao da pipeline
-
-A pipeline possui tres formas de execucao= push, manual E agendada (roda de forma agendada toda segunda as 12:00 UTC)
+## Observacao
+A aplicacao e um site publico de terceiros; disponibilidade e conteudo podem variar. O checkout depende da disponibilidade do fluxo demonstrativo de pagamento do ambiente.

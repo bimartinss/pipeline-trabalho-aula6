@@ -1,15 +1,1 @@
-{
-  "name": "pipeline-trabalho-aula6",
-  "version": "1.0.0",
-  "description": "Projeto JavaScript com pipeline de CI usando GitHub Actions.",
-  "main": "src/ServicoDePagamento.js",
-  "scripts": {
-    "test": "mocha",
-    "test:report": "mkdir -p reports && mocha --reporter mocha-junit-reporter --reporter-options mochaFile=reports/junit.xml && mocha --reporter mochawesome --reporter-options reportDir=reports,reportFilename=test-report,html=true,json=false"
-  },
-  "devDependencies": {
-    "mocha": "^10.8.2",
-    "mocha-junit-reporter": "^2.2.1",
-    "mochawesome": "^7.1.3"
-  }
-}
+{"name":"automation-exercise-cypress","version":"1.0.0","private":true,"description":"Automacao E2E dos casos 1, 2, 3, 4, 5, 8, 9, 10, 15 e 16 da Automation Exercise","scripts":{"cy:open":"cypress open","cy:run":"cypress run","cy:run:chrome":"cypress run --browser chrome","test":"cypress run","test:report":"cypress run"},"devDependencies":{"cypress":"^13.17.0","cypress-mochawesome-reporter":"^3.8.2"}}
